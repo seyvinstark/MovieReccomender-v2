@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block body %}
+<div class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="intro-message">
+                    <!---->
+                    <h1>Try our Reccomendation algorithm.</h1>
+
+                    <hr class="intro-divider">
+
+                </div>
+                <div class="list-group">
+                    {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('pred.predict_page') }}" class="list-group-item list-group-item-action active"></a>
+
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Our most popular movies</h1>
+
+            </div>
+        </div>
+         <div class="row">
+            <div class="col-lg-12">
+                <h1>Random movies</h1>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

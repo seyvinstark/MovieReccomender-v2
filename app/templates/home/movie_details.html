@@ -1,0 +1,27 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block title %} Movie Details {% endblock %}
+{% block body %}
+<div class="content-section">
+ <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <div class="center">
+
+        <h1>Movie Details</h1>
+
+
+        {% if movie %}
+            Movie name: {{ movie.name }} <br>
+             Movie Description: {{ movie.description }} <br>
+              Movie Price: {{ movie.price }}  <br>
+               Movie Genre: {{ movie.category }}  <br>
+               Movie Genre: {{ movie.rating }}  <br><br><br>
+               <div class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add to cart </div>
+        {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

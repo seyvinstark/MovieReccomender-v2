@@ -1,0 +1,20 @@
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Movies{% endblock %}
+{% block body %}<br><br><br><br><br><br><br><br>
+{{ utils.flashed_messages() }}
+<h1 style="text-align:center;"> Movies </h1>
+    <div id="movie_results">
+    <div class="container" style="margin-top:50px;">
+  <div class="row">
+    {{ data_details[0] }}
+
+  </div>
+</div>
+    </div>
+
+<script>
+
+</script>
+
+{% endblock %}

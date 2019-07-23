@@ -1,0 +1,57 @@
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Movies{% endblock %}
+{% block body %}<br><br><br><br><br><br><br><br>
+{{ utils.flashed_messages() }}
+<h1 style="text-align:center;"> Movies </h1>
+    <div id="movie_results">
+    <div class="container" style="margin-top:50px;">
+  <div class="row">
+    {% for movie in data %}
+
+    <!--  for data in result-->
+
+      <div class="col-xs-12 col-sm-6 col-md-3" id="{{ movie[0] }}">
+            <div class="col-item" id="{{ movie[4] }}">
+                <!--image-->
+                <div class="post-img-content">
+                    <img src="" onload="" class="img-responsive imagePost" data-link="http://www.omdbapi.com?apiKey=fb6fa5d1&i={{ movie[4] }}" id="movieposter"/>
+                    <span class="post-title"><!--http://placehold.it/350x260-->
+                    </span>
+                    <span class="round-tag">new</span>
+                </div>
+                <!--info-->
+                <div class="info">
+                    <div class="row">
+                        <div class="price col-md-6">
+                            <h5>{{ movie[1] }}</h5>
+                            <h5 class="price-text-color">Price</h5>
+                        </div>
+                        <div class="rating hidden-sm col-md-6">
+                            <h5 class="price-text-color"></h5>
+                        </div>
+                    </div>
+                    <!--button-->
+                    <div class="separator clear-left">
+                        <p class="btn-add">
+                            <i class="fa fa-list"></i>
+                               <a href="" class="hidden-sm">More details</a></p>
+                        <p class="btn-details">
+                            <i class="fa fa-shopping-cart"></i>
+                            <a href="{{ url_for('home.MovieDetailsInfo', movieId=movie[0]) }}" class="hidden-sm">Add to cart</a></p>
+                    </div>
+                    <div class="clearfix">
+                    </div>
+                </div>
+            </div>
+        </div>
+     {% endfor %}
+  </div>
+</div>
+    </div>
+
+<script>
+
+</script>
+
+{% endblock %}
