@@ -19,7 +19,6 @@
                   <th width="15%"> Name </th>
                   <th width="30%"> Department </th>
                   <th width="30%"> Role </th>
-                  <th width="15%"> Assign </th>
                 </tr>
               </thead>
               <tbody>
@@ -47,11 +46,6 @@
                         {% else %}
                           -
                         {% endif %}
-                      </td>
-                      <td>
-                        <a href="{{ url_for('admin.assign_user', id=user.id) }}">
-                          <i class="fa fa-user-plus"></i> Assign
-                        </a>
                       </td>
                     </tr>
                 {% endif %}

@@ -86,6 +86,8 @@ class Movie(db.Model):
     movieId = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(60), index=True, unique=True)
     genre = db.Column(db.String(60), index=True, unique=True)
+    description = db.Column(db.String(60), index=True, unique=True)
+    rating = db.Column(db.Integer)
     #arts = db.relationship('Cart')
 
     def __repr__(self):
@@ -109,6 +111,7 @@ class Cart(db.Model):
     cartId = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer,db.ForeignKey('users.userId'))
     movieId = db.Column(db.Integer)
+    status = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
         return '<Cart: {}>'.format(self.cartId)

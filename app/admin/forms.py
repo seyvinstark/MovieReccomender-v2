@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, IntegerField, SubmitField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms.validators import DataRequired
 
@@ -22,8 +22,8 @@ class MovieForm(FlaskForm):
 
     name = StringField('Name', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
-    category = QuerySelectField(query_factory=lambda: Genre.query.all(),
-                                  get_label="name")
+    genre = StringField('Category', validators=[DataRequired()])
 
-    rating = StringField('Rating', validators=[DataRequired()])
+
+    rating = IntegerField('Rating', validators=[DataRequired()])
     submit = SubmitField('Submit')

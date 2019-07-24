@@ -7,7 +7,7 @@ TOP_LEVEL_DIR = os.path.abspath(os.curdir)
 
 
 SECRET_KEY = "thisisthesecretkeyhere"
-SQLALCHEMY_DATABASE_URI  = "postgresql://postgres:123qweASD@localhost/lamperouge_db6"
+SQLALCHEMY_DATABASE_URI  = "mysql://root:annemuhiza@localhost/movies"
 
 
 

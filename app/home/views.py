@@ -1,4 +1,4 @@
-from flask import abort, render_template, flash, redirect, url_for
+from flask import abort, render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_required
 from .. import db
 import pandas as pd
@@ -6,6 +6,28 @@ from .. models import Movie, Cart, User
 from . import home
 from flask import jsonify
 from .. predict import forms
+import nexmo
+
+
+import os
+
+import stripe
+
+client = nexmo.Client(key='e88f8d53', secret='w7j2m7zksG7RPPVc')
+
+
+stripe_keys = {
+  'secret_key': os.environ['STRIPE_SECRET_KEY'],
+  'publishable_key': os.environ['STRIPE_PUBLISHABLE_KEY']
+}
+
+stripe.api_key = stripe_keys['secret_key']
+
+
+
+#export STRIPE_PUBLISHABLE_KEY=pk_test_l8INkseWioNZqSRgs78wq7AG
+#export STRIPE_SECRET_KEY=sk_test_OXZNLFLMjrg0Lc2mSnp5htQw
+
 
 @home.route('/')
 def homepage():
@@ -183,4 +205,33 @@ def userCart(userId):
     carts_count = user.carts.count()
 
     #return render_template('home/movie_details.html')
-    return render_template('home/user_cart.html', user=user, carts=carts, carts_count=carts_count)
+    return render_template('home/user_cart.html',
+                            user=user, carts=carts, carts_count=carts_count,
+                            key=stripe_keys['publishable_key'])
+
+
+@home.route('/charge', methods=['POST'])
+def charge():
+
+    # amount in cents
+    amount = 500
+
+    customer = stripe.Customer.create(
+        email='sample@customer.com',
+        source=request.form['stripeToken']
+    )
+
+    stripe.Charge.create(
+        customer=customer.id,
+        amount=amount,
+        currency='usd',
+        description='Lamperouge Charge'
+    )
+
+    client.send_message({
+        'from': 'Lamperouge',
+        'to': '250783751728',
+        'text': 'Your order has been confirmed - ',
+    })
+
+    return render_template('home/charge.html', amount=amount)

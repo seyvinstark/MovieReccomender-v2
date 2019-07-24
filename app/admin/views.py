@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 from . import admin
 from .forms import GenreForm, MovieForm
 from .. import db
-from ..models import Genre, Movie, User
+from ..models import Genre, Movie, User, Cart
 
 
 def check_admin():
@@ -213,6 +213,7 @@ def list_users():
     List all Users
     """
     check_admin()
+    
 
     users = User.query.all()
     return render_template('admin/users/users.html',
@@ -289,7 +290,7 @@ def add_movie():
 
     form = MovieForm()
     if form.validate_on_submit():
-        movie = Movie(name=form.name.data,
+        movie = Movie(title=form.name.data,
                     genre=form.genre.data,
                     rating=form.rating.data,
                     description=form.description.data)
@@ -318,7 +319,6 @@ def add_movie():
 
 
 # genre Views to list all genres in the database
-
 @admin.route('/movies')
 @login_required
 def list_movies():
@@ -332,6 +332,41 @@ def list_movies():
 
 
 
+
+
+
+# genre Views to list all genres in the database
+@admin.route('/movies/orders')
+@login_required
+def orders():
+    check_admin()
+    """
+    List all movies
+    """
+    movies = Cart.query.all()
+    return render_template('admin/movies/orders.html',
+                           movies=movies, title='Movies list')
+
+
+
+
+
+
+# genre Views to list all genres in the database
+@admin.route('/movies/orders/approve/<int:cartId>', methods=['GET', 'POST'])
+@login_required
+def approve(cartId):
+    check_admin()
+    """
+    List all movies
+    """
+    #movies = Cart.query.all()
+    cart = Cart.query.get_or_404(cartId)
+
+    cart.status = 1
+    db.session.commit()
+    flash('You have successfully approved the order.')
+    return redirect(url_for('admin.orders'))
 
 
 
